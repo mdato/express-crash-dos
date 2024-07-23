@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Example</title>
+</head>
+<body>
+    <h1>CRUD Example</h1>
+
+    <h2>Create Post</h2>
+    <form id="createForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title">
+        <button type="submit">Create Post</button>
+    </form>
+
+    <h2>Update Post</h2>
+    <form id="updateForm">
+        <label for="updateId">Post ID to Update:</label>
+        <input type="text" id="updateId" name="updateId">
+        <label for="updateTitle">New Title:</label>
+        <input type="text" id="updateTitle" name="updateTitle">
+        <button type="submit">Update Post</button>
+    </form>
+
+    <h2>Delete Post</h2>
+    <form id="deleteForm">
+        <label for="deleteId">Post ID to Delete:</label>
+        <input type="text" id="deleteId" name="deleteId">
+        <button type="submit">Delete Post</button>
+    </form>
+
+    <h2>Get All Posts</h2>
+    <button id="getAllPosts">Get All Posts</button>
+    <div id="postsList"></div>
+
+    <script>
+        document.getElementById('createForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            fetch('https://express-crash-dos.vercel.app/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('New post created:', data);
+                alert('New post created!');
+            })
+            .catch(error => {
+                console.error('Error creating post:', error);
+                alert('Error creating post!');
+            });
+        });
+
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const postId = document.getElementById('updateId').value;
+            const newTitle = document.getElementById('updateTitle').value;
+            fetch(`https://express-crash-dos.vercel.app/posts/${postId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ title: newTitle })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post updated:', data);
+                alert('Post updated!');
+            })
+            .catch(error => {
+                console.error('Error updating post:', error);
+                alert('Error updating post!');
+            });
+        });
+
+        document.getElementById('deleteForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const postId = document.getElementById('deleteId').value;
+            fetch(`https://express-crash-dos.vercel.app/posts/${postId}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post deleted:', data);
+                alert('Post deleted!');
+            })
+            .catch(error => {
+                console.error('Error deleting post:', error);
+                alert('Error deleting post!');
+            });
+        });
+
+        document.getElementById('getAllPosts').addEventListener('click', function() {
+            fetch('https://express-crash-dos.vercel.app/posts')
+            .then(response => response.json())
+            .then(posts => {
+                console.log('All posts:', posts);
+                const postsList = document.getElementById('postsList');
+                postsList.innerHTML = '';
+                posts.forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.textContent = `ID: ${post.id}, Title: ${post.title}`;
+                    postsList.appendChild(postElement);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching posts:', error);
+                alert('Error fetching posts!');
+            });
+        });
+    </script>
+</body>
+</html>
