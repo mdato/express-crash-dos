@@ -5,9 +5,9 @@ const router = express.Router()
 router.use(express.json());
 
 let posts=[
-    {id:1, title:'uno'},
-    {id:2, title:'dos'},
-    {id:3, title:'tres'},
+    {id:1, title:'post one'},
+    {id:2, title:'post two'},
+    {id:3, title:'post three'},
 ]
 
 router.get('/',(req,res)=>{
