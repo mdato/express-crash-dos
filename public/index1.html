@@ -39,7 +39,7 @@
         document.getElementById('createForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const title = document.getElementById('title').value;
-            fetch('https://express-crash-dos.vercel.app/posts', {
+            fetch('http://localhost:8000/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,7 +61,7 @@
             event.preventDefault();
             const postId = document.getElementById('updateId').value;
             const newTitle = document.getElementById('updateTitle').value;
-            fetch(`https://express-crash-dos.vercel.app/posts/${postId}`, {
+            fetch(`http://localhost:8000/posts/${postId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -82,7 +82,7 @@
         document.getElementById('deleteForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const postId = document.getElementById('deleteId').value;
-            fetch(`https://express-crash-dos.vercel.app/posts/${postId}`, {
+            fetch(`http://localhost:8000/posts/${postId}`, {
                 method: 'DELETE'
             })
             .then(response => response.json())
@@ -97,7 +97,7 @@
         });
 
         document.getElementById('getAllPosts').addEventListener('click', function() {
-            fetch('https://express-crash-dos.vercel.app/posts')
+            fetch('http://localhost:8000/posts')
             .then(response => response.json())
             .then(posts => {
                 console.log('All posts:', posts);
