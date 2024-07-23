@@ -7,6 +7,12 @@ import path from 'path'
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express()
 
+// Middleware para manejar datos codificados en application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
 //const posts = require('../routes/posts')
 import posts from '../routes/posts.js'
 // setup static folder
