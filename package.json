@@ -1,0 +1,16 @@
+{
+  "name": "express-crash-dos",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch --env-file=.env api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
